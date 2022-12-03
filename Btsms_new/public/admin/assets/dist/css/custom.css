@@ -1,0 +1,14 @@
+#hidden_div {
+    display: none;
+    flex-wrap: inherit;
+    }
+    .input_set input {
+    width: 100%;
+    }
+    .input_set {
+    display: flex;
+    gap: 6px;
+    }
+    .input_set input.form-control {
+    min-width: 74%;
+    }
