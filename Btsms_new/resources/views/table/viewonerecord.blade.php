@@ -56,41 +56,54 @@
             <div class="col-12">
             <h4>
             <i class="fas fa-globe danger "></i> Bluethink, Inc.
-            <small class="float-right">{{ $viewonerecord->created_at?? ' not get' }}</small>
-            </h4>
+            </h4><br>
             </div>
             </div>
             <div class="row invoice-info">
-            <div class="col-sm-4 invoice-col">
-            From
-            <address>
-            <strong>Admin, Inc.</strong><br>
-            795 Folsom Ave, Suite 600<br>
-            San Francisco, CA 94107<br>
-            Phone: (804) 123-5432<br>
-            Email: <a href="https://adminlte.io/cdn-cgi/l/email-protection"
-               class="__cf_email__"
-               data-cfemail="5d34333b321d3c31303c2e3c3838392e2928393432733e3230">[email&#160;protected]</a>
-            </address>
+            <div class="col-sm-1 invoice-col">
+            <strong>S No.</strong><br>
+            <strong>Model No.</strong><br>
+            <strong>Brand Name</strong><br>
+            <strong>processor</strong><br>
+            <strong>Storage</strong><br>
+            <strong>Ram</strong><br>
+            <strong>Host Name</strong><br>
+            <strong>Office Address.</strong><br>
+            <strong>Asset Type</strong><br>
+            <strong>Ownded By</strong><br>
+            <strong>Company Name</strong><br>
+            <strong>Reporting </strong><br>
+            <strong>Current Status</strong><br>
+            <strong>Remark</strong><br>
             </div>
             <div class="col-sm-4 invoice-col">
-            To
-            <address>
-            <strong>John Doe</strong><br>
-            795 Folsom Ave, Suite 600<br>
-            San Francisco, CA 94107<br>
-            Phone: (555) 539-1037<br>
-            Email: <a href="https://adminlte.io/cdn-cgi/l/email-protection"
-               class="__cf_email__"
-               data-cfemail="315b5e595f1f555e54715449505c415d541f525e5c">[email&#160;protected]</a>
-            </address>
+            <?php foreach ($viewonerecord as $detail);?>
+            {{ $detail->asset_sr_no?? ''}}<br>
+            {{ $detail->model_no?? ''}}<br>
+            {{ $detail->brand_name?? ''}}<br>
+            {{ $detail->processor?? ''}}<br>
+            {{ $detail->storage?? ''}}<br>
+            {{ $detail->memory?? ''}}<br>
+            {{ $detail->host_name?? ''}}<br>
+            {{ $detail->office_address?? ''}}<br>
+            {{ $detail->asset_type?? ''}}<br>
+            {{ $detail->owned_by?? ''}}<br>
+            {{ $detail->company_name?? ''}}<br>
+            {{ $detail->reporting_manag_detail?? ''}}<br>
+            <?php if($detail->current_status?? '' == "1"){?>
+            Install
+            <?php }
+               else{?>
+            Decommision
+            <?php }?>
+            {{ $detail->remark?? ''}}<br>
             </div>
             <div class="col-sm-4 invoice-col">
-            <b>Invoice #007612</b><br>
-            <br>
-            <b>Order ID:</b> 4F3S8J<br>
-            <b>Payment Due:</b> 2/22/2014<br>
-            <b>Account:</b> 968-34567
+            <!-- <b>Invoice #007612</b><br>
+               <br>
+               <b>Order ID:</b> 4F3S8J<br>
+               <b>Payment Due:</b> 2/22/2014<br>
+               <b>Account:</b> 968-34567 -->
             </div>
             </div>
             <div class="row">
@@ -98,42 +111,42 @@
             <table class="table table-striped">
             <thead>
             <tr>
-            <th>Qty</th>
-            <th>Product</th>
-            <th>Serial #</th>
-            <th>Description</th>
-            <th>Subtotal</th>
+            <th>System S.r No</th>
+            <th>Current Status</th>
+            <th>Emp Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone No</th>
+            <th>Tech</th>
+            <th>Allotment Date</th>
+            <th>Transfer Date</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-            <td>1</td>
-            <td>Call of Duty</td>
-            <td>455-981-221</td>
-            <td>El snort testosterone trophy driving gloves handsome</td>
-            <td>$64.50</td>
+            @foreach ($viewonerecord as $detail)
+               <tr> 
+               <td>{{ $detail->asset_sr_no}}</td>
+               <?php if($detail->current_status == "1"){?>
+               <td style="color:Green">Install</td>
+               <?php }
+                  else{?>
+               <td style="color:Red">Decommision</td>
+               <?php }?>
+               <td>{{ $detail->emp_id?? 'Not Allot User'}}</td>
+               <td>{{ $detail->name?? 'Not Allot User'}}</td>
+               <td>{{ $detail->email ?? 'Not Allot User'}}</td>
+               <td>{{ $detail->mobile ?? 'Not Allot User'}}</td>
+               <td>{{ $detail->technology ?? 'Not Allot User'}}</td>
+               <td>{{ $detail->created_at?? 'Not Allot User' }}</td>
+               <?php if($detail->current_status == "0"){?>
+               <td style="color:Red">{{ $detail->updated_at ?? ''}}</td>
+               <?php }
+                  else{?>
+               <td style="color:Green">Running</td>  
+               <?php }?>
+          
             </tr>
-            <tr>
-            <td>1</td>
-            <td>Need for Speed IV</td>
-            <td>247-925-726</td>
-            <td>Wes Anderson umami biodiesel</td>
-            <td>$50.00</td>
-            </tr>
-            <tr>
-            <td>1</td>
-            <td>Monsters DVD</td>
-            <td>735-845-642</td>
-            <td>Terry Richardson helvetica tousled street art master</td>
-            <td>$10.70</td>
-            </tr>
-            <tr>
-            <td>1</td>
-            <td>Grown Ups Blue Ray</td>
-            <td>422-568-642</td>
-            <td>Tousled lomo letterpress</td>
-            <td>$25.99</td>
-            </tr>
+            @endforeach
             </tbody>
             </table>
             </div>

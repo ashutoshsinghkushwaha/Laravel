@@ -27,7 +27,6 @@
                   <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>
                      Dashboard
-                     <!-- <span class="right badge badge-danger">New</span> -->
                   </p>
                </a>
             </li>
@@ -40,8 +39,8 @@
                   </p>
                </a>
                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                     <a href="/addemployee" class="nav-link">
+                  <li class="nav-item ">
+                     <a href="/addemployee" class="nav-link active">
                         <i class="nav-icon far fa-plus-square"></i>
                         <p>
                            Add New Employee
@@ -76,7 +75,7 @@
                         </p>
                      </a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item ">
                      <a href="/viewallot" class="nav-link">
                         <i class="nav-icon far fa-plus-square"></i>
                         <p>
@@ -91,3 +90,4 @@
       </nav>
    </div>
 </aside>
+<li class="nav-item {{ Route::is('users.*') || Route::is('user.*')  ? 'active' : '' }}">

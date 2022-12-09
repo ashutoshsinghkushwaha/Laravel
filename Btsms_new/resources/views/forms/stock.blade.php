@@ -10,6 +10,7 @@
       @include('admin.stylesheet')
       <link rel="stylesheet" href="{{ asset('admin/assets/dist/css/custom.css') }}">
       <!-- stylesheet End -->
+
    </head>
    <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
       <div class="wrapper">
@@ -23,6 +24,7 @@
          <!-- Side Bar Start -->
          @include('admin.sidebar')
          <!-- Side Bar End -->
+     
          <div class="content-wrapper">
             <div class="content-header">
                <div class="container-fluid">
@@ -50,19 +52,22 @@
             </div>
             @endif
             <section class="content">
-               <form action="{{ route('allotment')}}" method="POST">
+               <form action="{{ route('SaveSystemRecord')}}" method="POST">
                   @csrf
                   <div class="card-body">
                      <div class="row">
                         <!-- First for start here  -->
+
+                        <input type="hidden" class="asset_id" id="id" name="id" value="">
+
                         <div class="col-md-3" id="asset_detail">
-                           <label for="Serial_no">Asset SR No. <span style="color:red" type="submit"> *
+                           <label for="Serial_no">Serial Number<span style="color:red" type="submit"> *
                            </span></label>
                            <input type="text" class="form-control" id="asset_sr_no" placeholder="Enter Serial No"
                               name="asset_sr_no" value="{{ old('serial_no') }}">
                            <p class="text-danger"> @error('asset_sr_no') {{ $message }} @enderror </p>
                         </div>
-                        <input type="hidden" class="asset_id" id="id" name="id" value="">
+                       
                         <div class="col-md-3">
                            <label for="model_no">Model No. <span style="color:red"> * </span></label>
                            <input type="text" class="form-control" id="model_no" placeholder="Enter Model No"
@@ -70,24 +75,33 @@
                            <p class="text-danger"> @error('model_no') {{ $message }} @enderror </p>
                         </div>
                         <div class="col-md-3">
-                           <label for="brand_name">Brand Name </label>
+                           <label for="brand_name">Hardware Manufacturer<span style="color:red" type="submit"> *
+                           </span> </label>
                            <input type="text" class="form-control" id="brand_name" placeholder="Enter Brand Name" name="brand_name" value="{{ old('brand_name') }}">
+                           <p class="text-danger"> @error('brand_name') {{ $message }} @enderror </p>
                         </div>
                         <div class="col-md-3">
-                           <label for="processor">Processor </label>
+                           <label for="processor">Processor<span style="color:red" type="submit"> *
+                           </span> </label>
                            <input type="text" class="form-control" id="processor"
                               placeholder="Enter Processor Name" name="processor" value="{{ old('processor') }}">
+                              <p class="text-danger"> @error('processor') {{ $message }} @enderror </p>
                         </div>
                         <div class="col-md-3">
-                           <label for="storage">Storage</label>
+                           <label for="storage">HDD /SSD <span style="color:red" type="submit"> *
+                           </span></label>
                            <input type="text" class="form-control" id="storage" placeholder="Enter Storage"
                               name="storage" value="{{ old('storage') }}">
+                              <p class="text-danger"> @error('storage') {{ $message }} @enderror </p>
                         </div>
                         <div class="col-md-3">
-                           <label for="memory">Memory</label>
-                           <input type="text" class="form-control" id="memory" placeholder="Enter Memory"
+                           <label for="memory">RAM <span style="color:red" type="submit"> *
+                           </span></label>
+                           <input type="text" class="form-control" id="memory" placeholder="Enter ram Size"
                               name="memory" value="{{ old('memory') }}">
+                              <p class="text-danger"> @error('memory') {{ $message }} @enderror </p>
                         </div>
+                        
                         <div class="col-md-3">
                            <label for="host_name">Host Name</label>
                            <input type="text" class="form-control" id="host_name" placeholder="Enter Host Name"
@@ -103,15 +117,29 @@
                         </div>
                         <div class="col-md-3">
                            <label>Asset Type</label>
-                           <select class="form-control select2" value="{{ old('asset_type') }}" name="asset_type"
+                           <select id="asset_type" class="form-control select2" value="{{ old('asset_type') }}" name="asset_type"
                               style="width: 100%;">
-                              <option selected="selected">New</option>
-                              <option>Old</option>
+                              <option selected="selected" >Old</option>
+                              <option >New</option>
                            </select>
                         </div>
+                   <!-- new condition to open the warrenty field -->
+                        <div class="col-md-3"id="start_warranty_div" >
+                           <label for="start_date" style="color:red" >Warrenty Start</label>
+                           <input  class="form-control" type="date" id="start_warranty" name="start_warranty" 
+                                 placeholder="dd-mm-yyyy"value=""
+                                 min="2021-01-01" max="2030-12-31" >
+                        </div>
+                        <div class="col-md-3" id="end_warranty_div" >
+                           <label for="end_date" style="color:red" >Warrenty End</label>
+                           <input  class="form-control" type="date" id="end_warranty" name="end_warranty" placeholder="dd-mm-yyyy" value=""
+                                 min="2021-01-01" max="2030-12-31">
+                        </div>
+                        <!-- Closed warrenty field -->
+
                         <div class="col-md-3">
                            <label>Owned By</label>
-                           <select id="select" class="form-control select2" style="width: 100%;"
+                           <select id="owned_by" class="form-control select2" style="width: 100%;"
                               value="{{ old('owned_by') }}" name="owned_by">
                               <option selected="selected">Bluethink</option>
                               <option>Vendor</option>
@@ -119,13 +147,13 @@
                         </div>
                         <!-- company name select base form open  -->
                         <div class="col-md-3" id="company_name">
-                           <label for="company_name" style="color:red">Company Name</label>
+                           <label for="company_name" style="color:red" >Company Name</label>
                            <input type="text" class="form-control" id="company_name"
                               placeholder="Enter company_name" name="company_name"
                               value="{{ old('company_name') }}">
                         </div>
                         <div class="col-md-3" id="reporting_manag_detail">
-                           <label for="reporting_manag_detail" style="color:red">Reporting Manager Detail</label>
+                           <label for="reporting_manag_detail" style="color:red" >Reporting Manager Detail</label>
                            <input type="text" class="form-control" id="reporting_manag_detail"
                               placeholder="Enter Reporting Manager Detail" name="reporting_manag_detail"
                               value="{{ old('reporting_manag_detail') }}">
@@ -137,6 +165,7 @@
                               style="width: 100%;" onchange="showDiv('hidden_div', this)">
                               <option value="0">Decommissioned</option>
                               <option value="1">Install</option>
+                              <option value="2">Retired</option>
                            </select>
                         </div>
                         <div class="col-md-3" id="remarks">
@@ -182,56 +211,8 @@
                         <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                      </div>
                </form>
-               <script>
-                  $('#asset_sr_no').blur(function(e) {
-                      e.preventDefault();
-                      var asset_sr_no = $('#asset_sr_no').val();
-                  
-                      $.ajax({
-                          type: 'post',
-                          data: {
-                              asset_sr_no: asset_sr_no,
-                              _token: "{{ csrf_token() }}"
-                          },
-                          url: "{{ url('asset_detail') }}",
-                          success: function(response) {
-                              console.log(response);
-                              $('#id').val(response.id);
-                              // alert(response.id);
-                              // $('.col-md-3 #asset_sr_no').val(response.asset_sr_no);
-                              $('.col-md-3 #model_no').val(response.model_no);
-                              $('.col-md-3 #brand_name').val(response.brand_name);
-                              $('.col-md-3 #processor').val(response.processor);
-                              $('.col-md-3 #storage').val(response.storage);
-                              $('.col-md-3 #memory').val(response.memory);
-                              $('.col-md-3 #host_name').val(response.host_name);
-                              $('.col-md-3 #office_address').val(response.office_address);
-                              $('.col-md-3 #owned_by').val(response.owned_by);
-                              $('.col-md-3 #company_name').val(response.company_name);
-                              $('.col-md-3 #reporting_manag_detail').val(response
-                                  .reporting_manag_detail);
-                              $('#current_status').val(response.current_status);
-                              $('.col-md-3 #remark').val(response.remark);
-                              $('.view_employee #emp_id').val(response.emp_id);
-                              if(response.current_status==1) {
-                                 getEmpDetails();
-                                 document.getElementById('hidden_div').style.display = 'flex';
-                              }else {
-                                 document.getElementById('hidden_div').style.display = 'none';
-                              }
-                          }
-                      })
-                  });
-               </script>
-               <div class="card-footer">
-               <button type="submit" class="btn btn-primary primary-transfer" name="submit">Transfer</button>
-               </div>
-               <script>
-                  $('#emp_id').blur(function(e) {
-                      e.preventDefault();
-                      getEmpDetails();
-                  });
-               </script>
+
+ 
                </div>
          </div>
          </section>
@@ -248,44 +229,78 @@
       // JS
    </body>
    <script>
-      $(document).ready(function() {
-          $("#company_name").hide();
-          $("#reporting_manag_detail").hide();
-          $('#select').on('change', function() {
-              if ($("#company_name").css("display") == 'none') {
-                  $("#company_name").show();
-                  $("#reporting_manag_detail").show();
-              } else {
-                  $("#company_name").hide();
-                  $("#reporting_manag_detail").hide();
-              }
-          });
-      });
-      
-      function showDiv(divId, element) {
-          document.getElementById(divId).style.display = element.value == 1 ? 'flex' : 'none';
-          document.getElementById('remarks').style.display = element.value == 1 ? 'none' : 'block';
-      }
-      
-      function getEmpDetails(){
-         var emp_id = $('#emp_id').val();    
-            $.ajax({
-               type: 'post',
-               data: {
-                  emp_id: emp_id,
-                  _token: "{{ csrf_token() }}"
-               },
-               url: "{{ url('find') }}",
-               success: function(response) {
-                  console.log(response);
-                  $('.view_employee #emp_id').val(response.emp_id);
-                  $('.view_employee #name_input').val(response.name);
-                  $('.view_employee #email_input').val(response.email);
-                  $('.view_employee #tech_input').val(response.technology);
-                  $('.view_employee #mobile_input').val(response.mobile);
-      
-               }
-            })
-      }
+      // function showDiv(divId, element) {
+      //     document.getElementById(divId).style.display = element.value == 1 ? 'flex' : 'none';
+      //     document.getElementById('remarks').style.display = element.value == 1 ? 'none' : 'block';
+      // }
    </script>
 </html>
+
+<script>
+   $('#asset_sr_no').blur(function(e) {
+   e.preventDefault();
+   var asset_sr_no = $('#asset_sr_no').val();
+   $.ajax({
+      type: 'post',
+      data: {
+            asset_sr_no: asset_sr_no,
+            _token: "{{ csrf_token() }}"
+      },
+      url: "{{ url('asset_detail') }}",
+      success: function(response) {
+            console.log(response);
+            $('#id').val(response.id);
+            // alert(response.id);
+            // $('.col-md-3 #asset_sr_no').val(response.asset_sr_no);
+            $('.col-md-3 #model_no').val(response.model_no);
+            $('.col-md-3 #brand_name').val(response.brand_name);
+            $('.col-md-3 #processor').val(response.processor);
+            $('.col-md-3 #storage').val(response.storage);
+            $('.col-md-3 #memory').val(response.memory);
+            $('.col-md-3 #host_name').val(response.host_name);
+            $('.col-md-3 #office_address').val(response.office_address);
+            $('.col-md-3 #owned_by').val(response.owned_by);
+            $('.col-md-3 #company_name').val(response.company_name);
+            $('.col-md-3 #reporting_manag_detail').val(response
+               .reporting_manag_detail);
+               $('.col-md-3 #asset_type').val(response.asset_type);
+               $('.col-md-3 #start_warranty').val(response.start_warranty);
+               $('.col-md-3 #end_warranty').val(response.end_warranty);
+               
+            $('#current_status').val(response.current_status);
+            $('.col-md-3 #remark').val(response.remark);
+            $('.view_employee #emp_id').val(response.emp_id);
+            if (response.current_status == 1) {
+               getEmpDetails();
+               document.getElementById('hidden_div').style.display = 'flex';
+            } else {
+               document.getElementById('hidden_div').style.display = 'none';
+            }
+      }
+   })
+   });
+   $('#emp_id').blur(function(e) {
+   e.preventDefault();
+   getEmpDetails();
+   });
+
+   function getEmpDetails() {
+   var emp_id = $('#emp_id').val();
+   $.ajax({
+      type: 'post',
+      data: {
+            emp_id: emp_id,
+            _token: "{{ csrf_token() }}"
+      },
+      url: "{{ url('find') }}",
+      success: function(response) {
+            console.log(response);
+            $('.view_employee #emp_id').val(response.emp_id);
+            $('.view_employee #name_input').val(response.name);
+            $('.view_employee #email_input').val(response.email);
+            $('.view_employee #tech_input').val(response.technology);
+            $('.view_employee #mobile_input').val(response.mobile);
+      }
+   })
+   }
+</script>

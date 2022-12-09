@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class BluethinkController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a the form .
      *
      * @return \Illuminate\Http\Response
      */
@@ -19,7 +19,11 @@ class BluethinkController extends Controller
         return view('forms/addEmployee'); 
     }
 
-
+    /**
+     * Save  the Record of employ .
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function saveData(Request $request)
     {
 
@@ -47,13 +51,18 @@ class BluethinkController extends Controller
         }
     }
 
-
-    public function display(){
+   /**
+     * View the all record of the employ .
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function display()
+    {
         $products = Bluethink::all();
-        // print_r($products);
-        // die;
         return view('table.viewEmployee',compact('products'));
     }
+
+   
 
 
 }

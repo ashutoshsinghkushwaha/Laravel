@@ -29,7 +29,6 @@ class CreateStocksTable extends Migration
             $table->string('reporting_manag_detail')->nullable();
             $table->string('current_status');
             $table->string('remark')->nullable();
-            $table->string('emp_id');
             $table->timestamps();
         });
     }

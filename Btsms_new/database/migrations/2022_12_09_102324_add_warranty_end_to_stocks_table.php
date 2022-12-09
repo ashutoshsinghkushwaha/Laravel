@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStatussTable extends Migration
+class AddWarrantyEndToStocksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateStatussTable extends Migration
      */
     public function up()
     {
-        Schema::create('statuss', function (Blueprint $table) {
-            $table->id();
-            $table->string('asset_sr_no');
-            $table->string('emp_id');
-            $table->string('current_status');
-            $table->timestamps();
+        Schema::table('stocks', function (Blueprint $table) {
+            //
+            $table->string('end_warranty');
         });
     }
 
@@ -29,6 +26,8 @@ class CreateStatussTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('statuss');
+        Schema::table('stocks', function (Blueprint $table) {
+            //
+        });
     }
 }

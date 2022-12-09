@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAllotmentrecordsTable extends Migration
+class CreateStatussTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateAllotmentrecordsTable extends Migration
      */
     public function up()
     {
-        Schema::create('allotmentrecords', function (Blueprint $table) {
-            $table->id();
-            $table->int('stock_id');
-            $table->string('current_status');
-            $table->string('emp_id');
+        Schema::create('statuss', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('value');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateAllotmentrecordsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('allotmentrecords');
+        Schema::dropIfExists('statuss');
     }
 }

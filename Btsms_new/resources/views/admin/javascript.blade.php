@@ -17,3 +17,5 @@
 <script src="{{ asset('admin/assets/dist/js/demo.js') }}"></script>
 
 <script src="{{ asset('admin/assets/dist/js/pages/dashboard2.js') }}"></script>
+<!-- custome js for stock form  -->
+<script src="{{ asset('stock.js') }}"></script>

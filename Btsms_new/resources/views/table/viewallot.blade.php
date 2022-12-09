@@ -46,7 +46,7 @@
                </div>
             </section>
             <section class="content">
-               <div class="container-fluid">
+               <!-- <div class="container-fluid">
                   <form action="">
                      <div class="row">
                         <div class="col-md-10 offset-md-1">
@@ -74,7 +74,7 @@
                         </div>
                      </div>
                   </form>
-               </div>
+               </div> -->
                <div class="container-fluid">
                   <div class="row">
                      <div class="col-12">
@@ -83,14 +83,15 @@
                               <table id="example1" class="table table-bordered table-striped">
                                  <thead>
                                     <tr>
+                                       <th>ID</th>
                                        <th>S No.</th>
                                        <th>Model No.</th>
                                        <th>Host Name</th>
                                        <th>Office Add</th>
-                                       <th>Asset Type</th>
+                                       <!-- <th>Asset Type</th> -->
                                        <th>Owned By</th>
                                        <th>Comp.</th>
-                                       <th>Reporting Mgr</th>
+                             
                                        <th>Current Status</th>
                                        <th>Emp Id</th>
                                        <th>Name</th>
@@ -103,30 +104,37 @@
                                  <tbody>
                                     @foreach ($details as $detail)
                                     <tr>
+                                       <td>{{ $detail->id}}</td>
                                        <td>{{ $detail->asset_sr_no}}</td>
                                        <td>{{ $detail->model_no }}</td>
                                        <td>{{ $detail->host_name }}</td>
                                        <td>{{ $detail->office_address }}</td>
-                                       <td>{{ $detail->asset_type }}</td>
+                                       <!-- <td>{{ $detail->asset_type }}</td> -->
                                        <td>{{ $detail->owned_by }}</td>
-                                       <td>{{ $detail->company_name }}</td>
-                                       <td>{{ $detail->reporting_manag_detail }}</td>
+                                       <td>{{ $detail->company_name ??'Na'}}</td>
+                        
                                        <?php if($detail->current_status == "1"){?>
-                                       <td style="color:Green">Install</td>
+                                       <td style="color:Green"><b>Install</b></td>
                                        <?php }
+                                      elseif ($detail->current_status == "0"){?>
+                                          <td style="color:Blue"><b>Decommision</b></td>
+                                          <?php }
+
                                           else{?>
-                                       <td style="color:Red">Decommision</td>
+                                       <td style="color:Red"><b>Retired</b></td>
                                        <?php }?>
-                                       <td>{{ $detail->emp_id }}</td>
-                                       <td>{{ $detail->name }}</td>
-                                       <td>{{ $detail->email }}</td>
-                                       <td>{{ $detail->mobile }}</td>
-                                       <td>{{ $detail->technology }}</td>
+                                       <td>{{ $detail->emp_id??'Na'}}</td>
+                                       <td>{{ $detail->name ??'Na'}}</td>
+                                       <td>{{ $detail->email ??'Na'}}</td>
+                                       <td>{{ $detail->mobile ??'Na'}}</td>
+                                       <td>{{ $detail->technology ??'Na'}}</td>
                                        <td class="text-right py-0 align-middle">
                                           <div class="btn-group btn-group-sm">
-                                             <a href="/viewonerecord??id={{ $detail->id}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                             <a href="#" class="btn btn-danger"><i
-                                                class="fas fa-trash"></i></a>
+                                             <a href="/viewonerecord??id={{ $detail->id}}"  class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                             <a href="#" class="btn btn-danger <?php if($detail->current_status == "1"){
+                                                echo 'disabled';
+                                             }?>"  ><i
+                                                class="fas fa-trash" ></i></a>
                                           </div>
                                        </td>
                                     </tr>
